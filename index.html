@@ -60,7 +60,7 @@
     .ctrl-btn:active { filter: brightness(0.82); transform: translateY(0);    }
     #btn-refresh { background: #2563eb; color: white; }
     #btn-sat     { background: #0f766e; color: white; }
-    #btn-export  { background: #b45309; color: white; }
+    #btn-copy    { background: #7c3aed; color: white; }
 
     /* ── Legend panels ───────────────────────────────────────────── */
     .legend-panel {
@@ -168,8 +168,8 @@
     &#x1F5FA; Map View
   </button>
   <div class="ctrl-sep"></div>
-  <button class="ctrl-btn" id="btn-export" onclick="exportMap()" title="Download a standalone HTML file you can upload to share">
-    &#x2193; Export HTML
+  <button class="ctrl-btn" id="btn-copy" onclick="copyLink()" title="Copy shareable map link to clipboard">
+    &#x1F517; Copy Link
   </button>
 </div>
 
@@ -376,13 +376,11 @@ function refreshMap() {
 }
 
 
-function exportMap() {
-  if (window.EMBEDDED_DATA) {
-    showToast('This is already the standalone export version.');
-    return;
-  }
-  showToast('Generating export \u2014 download will start shortly...');
-  window.location.href = '/export';
+function copyLink() {
+  var url = 'https://mbilson.github.io/Acquisitions-Map/';
+  navigator.clipboard.writeText(url)
+    .then(function() { showToast('Link copied to clipboard!'); })
+    .catch(function() { prompt('Copy this link:', url); });
 }
 
 /* ═══════════════════════════════════════════════════════════════════
